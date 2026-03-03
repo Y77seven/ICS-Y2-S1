@@ -1,0 +1,64 @@
+﻿-- Task 1: Script
+DROP TABLE IF EXISTS T;
+CREATE TABLE T (a INT, b INT, c INT);
+INSERT INTO T VALUES
+(1,2,4),
+(1,2,5),
+(2,3,1),
+(2,3,7),
+(1,2,5);
+
+SELECT DISTINCT a, b FROM T;
+SELECT DISTINCT b, c - a FROM T;
+SELECT DISTINCT a + b , c - a FROM T;
+SELECT c - a - b AS j FROM T WHERE c - 1 >= (a + b);
+SELECT c FROM T WHERE a * 2 > b AND (c < b);
+SELECT * FROM T WHERE (a, b) <> (1, 2) AND (b, c) <> (3, 1);
+
+
+-- Task 2: Script
+DROP TABLE IF EXISTS T;
+CREATE TABLE T (a CHAR(4), b VARCHAR(20), c DATE);
+INSERT INTO T VALUES
+('A001','database','1999-01-01'),
+('A002','data structure','2000-01-01'),
+('B001','data security','2001-01-11'),
+('B002','network security','2002-01-21'),
+('C001','program structure','2003-11-13');
+
+SELECT * FROM T WHERE a = 'A001' OR a LIKE 'B001';
+SELECT * FROM T WHERE a NOT LIKE 'A%' AND b LIKE '_security';
+SELECT * FROM T WHERE a NOT LIKE 'A%' AND b LIKE '%security%';
+SELECT * FROM T WHERE a LIKE '_001' AND b LIKE '%_s%';
+SELECT * FROM T WHERE (a LIKE 'B%' OR a LIKE '___1') AND c < '2002-01-01';
+SELECT * FROM T WHERE (a LIKE 'B%' OR a LIKE '___1') AND c LIKE '%-01-%';
+
+
+-- Task 3: Script
+DROP TABLE IF EXISTS books, authors_of_books;
+CREATE TABLE books (id INT, name VARCHAR(20), published DATE);
+INSERT INTO books VALUES
+('1','database','1999-01-01'),
+('2','data structure','2000-01-01'),
+('3','data security','2001-01-11'),
+('4','network security','2002-01-21'),
+('5','program structure','2003-11-13');
+CREATE TABLE authors_of_books (author_id INT, book_id INT);
+INSERT INTO authors_of_books VALUES
+(20012,1),
+(20017,1),
+(20012,2),
+(20020,2),
+(20021,2),
+(20012,3),
+(20017,4),
+(20017,5);
+
+SELECT author_id, name FROM books, authors_of_book WHERE books.id = authors_of_book.book_id AND published < '2001-01-01';
+SELECT DISTINCT id FROM books, authors_of_book WHERE books.id = authors_of_book.book_id * 2;
+SELECT b1.id FROM books b1, books b2 WHERE b1.id < b2.id AND b2.name LIKE 'data%';
+SELECT name FROM (SELECT * FROM books WHERE books.id < 4) b, (SELECT * FROM authors_of_book WHERE author_id < 20020) t WHERE b.id = t.book_id;
+SELECT * FROM books WHERE id IN (SELECT book_id FROM authors_of_book WHERE author_id IN (20012, 20021));
+SELECT * FROM books WHERE id IN (SELECT book_id FROM authors_of_book WHERE author_id < 20020 and author_id > 20013);
+SELECT * FROM books b1 WHERE EXISTS (SELECT book_id FROM authors_of_book WHERE book_id = b1.id * 2);
+

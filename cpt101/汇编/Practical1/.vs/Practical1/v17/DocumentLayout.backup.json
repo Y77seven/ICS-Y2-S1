@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Y2\\cpt101\\\u6C47\u7F16\\Practical1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F484B58E-9455-4A6B-84BD-9A5D46784CB8}|Practical1.vcxproj|D:\\Y2\\cpt101\\\u6C47\u7F16\\Practical1\\Practical1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F484B58E-9455-4A6B-84BD-9A5D46784CB8}|Practical1.vcxproj|solutionrelative:Practical1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Practical1.cpp",
+              "DocumentMoniker": "D:\\Y2\\cpt101\\\u6C47\u7F16\\Practical1\\Practical1.cpp",
+              "RelativeDocumentMoniker": "Practical1.cpp",
+              "ToolTip": "D:\\Y2\\cpt101\\\u6C47\u7F16\\Practical1\\Practical1.cpp",
+              "RelativeToolTip": "Practical1.cpp",
+              "ViewState": "AgIAACEAAAAAAAAAAAAgwAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-09T05:23:17.377Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

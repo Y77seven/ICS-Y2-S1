@@ -1,0 +1,4 @@
+﻿  Practical1.cpp
+D:\Y2\cpt101\汇编\Practical1\Practical1.cpp(24,8): error C2094: 标签“printf”未定义
+D:\Y2\cpt101\汇编\Practical1\Practical1.cpp(31,8): error C2094: 标签“scanf_s”未定义
+D:\Y2\cpt101\汇编\Practical1\Practical1.cpp(50,1): warning C4102: “equal”: 未引用的标签

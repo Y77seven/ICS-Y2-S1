@@ -1,0 +1,78 @@
+-- Task 1: Inner Join, Natural Join
+DROP TABLE IF EXISTS books, authors_of_books;
+CREATE TABLE books (book_id INT, name VARCHAR(20), published DATE);
+INSERT INTO books VALUES
+('1','database','1999-01-01'),
+('2','data structure','2000-01-01'),
+('3','data security','2001-01-11'),
+('4','network security','2002-01-21'),
+('5','program structure','2003-11-13');
+CREATE TABLE authors_of_books (author_id INT, book_id INT);
+INSERT INTO authors_of_books VALUES
+(20012,1),
+(20017,1),
+(20012,2),
+(20020,2),
+(20021,2),
+(20012,3),
+(20017,4),
+(20017,5);
+
+SELECT author_id, name FROM books INNER JOIN authors_of_books ON (books.book_id = authors_of_books.book_id) WHERE published < '2000-01-01';
+SELECT author_id, name FROM books INNER JOIN authors_of_books using (book_id) WHERE books.name LIKE '%security%';
+SELECT author_id, book_id FROM books NATURAL JOIN authors_of_books WHERE author_id > 20020 AND books.name NOT LIKE 'd%';
+
+-- Task 2: Outer Join
+DROP TABLE IF EXISTS student, enrolment;
+CREATE TABLE student (
+    id SMALLINT,
+    name VARCHAR(100)
+);
+INSERT INTO student VALUES (123,'John'),(124,'Mary'),(125,'Mark'),(126,'Jane');
+
+CREATE TABLE enrolment (
+    id SMALLINT,
+    code CHAR(3),
+    mark smallint
+);
+INSERT INTO enrolment VALUES (123,'DBS',60),(124,'PRG',70),(125,'DBS',50),(128,'DBS',80);
+
+SELECT student.id, code FROM student left outer join enrolment ON (student.id = enrolment.id) WHERE name LIKE '_ar_';
+SELECT enrolment.id, name FROM enrolment left outer join student ON (student.id = enrolment.id) WHERE name NOT LIKE '_ar_';
+SELECT * FROM student AS s1 LEFT OUTER JOIN (SELECT id + 1 AS id, name FROM student) AS s2 ON (s1.id = s2.id + 1);
+SELECT * FROM student s RIGHT OUTER JOIN enrolment e ON (s.id <> e.id) WHERE s.name NOT LIKE '%a%';
+
+-- Task 3: Order By
+DROP TABLE IF EXISTS t;
+CREATE TABLE t (
+    a INT,
+    b CHAR(3),
+    c DATE
+);
+INSERT INTO t VALUES (3,'aaa','2021-01-01'),(2,'aab','2021-01-02'),(5,'baa','2021-01-03'),(4,'bab','2021-01-04'),(1,'caa','2021-01-05');
+
+SELECT * FROM t ORDER BY a;
+SELECT * FROM t ORDER BY b ASC, a DESC;
+SELECT * FROM t ORDER BY a DESC, b ASC;
+SELECT * FROM t ORDER BY b, c DESC;
+
+-- Task 4: Aggregate function, Group By & Having
+DROP TABLE IF EXISTS marks;
+CREATE TABLE marks (
+    sname VARCHAR(100),
+    programme VARCHAR(4),
+    module VARCHAR(8),
+    mark SMALLINT
+);
+INSERT INTO marks VALUES
+('s1','ICS','CPT102',66),('s1','ICS','CPT103',69),('s1','ICS','CPT105',55),('s1','ICS','CPT108',77),
+('s2','IMIS','CPT103',64),('s2','IMIS','CPT105',53),('s2','IMIS','INT102',67),('s2','IMIS','IOM103',65),
+('s3','IMIS','CPT103',88),('s2','IMIS','CPT105',72),('s2','IMIS','INT102',57),('s2','IMIS','IOM103',66),
+('s4','ICS','CPT102',81),('s1','ICS','CPT103',73),('s1','ICS','CPT105',79),('s1','ICS','CPT108',68);
+
+SELECT sname, avg(mark) AS average FROM marks WHERE programme = 'IMIS' GROUP BY sname HAVING average > 70;
+SELECT programme, avg(mark) AS average FROM marks GROUP BY programme;
+SELECT module, avg(mark) AS average FROM marks GROUP BY module;
+SELECT module, max(mark) - min(mark) AS average FROM marks GROUP BY module;
+SELECT programme,module, min(mark) AS average FROM marks GROUP BY programme,module;
+SELECT sname, module, mark FROM marks m1 WHERE mark >= (SELECT avg(mark) FROM marks m2 WHERE m1.module = m2.module GROUP BY module);
